@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('owner_id');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('Title')->unique();
+            $table->longText('descrition');
+            $table->boolean('isDo');
             $table->timestamps();
         });
     }
