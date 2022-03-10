@@ -9,6 +9,7 @@ class Task extends Model
 {
     use HasFactory;
     public function user(){
-        return $this->belongsTo(User::class,'owner_id');
-}
+        // you don't need to name the key
+        return $this->belongsTo(User::class,'owner_id');//return $this->belongsTo(User::class);
+    }
 }
