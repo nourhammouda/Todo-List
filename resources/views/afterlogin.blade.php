@@ -27,7 +27,10 @@ a:link, a:visited ,a:active{
                         </div>
                     </div>
                 </div>
-                @forelse((array)auth()->user()->tasks as $task)
+                @forelse(auth()->user()->tasks as $task)
+
+                {{-- @forelse($tasks as $task) --}}
+
                 <table class="w-full text-md rounded mb-4 mt-3">
                     <thead>
                     <tr class="border-b">
@@ -48,7 +51,7 @@ a:link, a:visited ,a:active{
                         </td>
                         <td class="p-3 px-5">
                             
-                            <a href="/edite/{{$task->id}}" name="edit" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</a>
+                            <a href="/edit/{{$task->id}}" name="edit" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</a>
                             <form action="/delete/{{$task->id}}" class="inline-block">
                                 <button type="submit" name="delete" formmethod="POST" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button>
                                 {{ csrf_field() }}

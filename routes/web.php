@@ -32,4 +32,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     
     Route::get('/edit/{task}', [App\Http\Controllers\TodoListController::class, 'edit'])->name('edit');
     Route::post('/update/{task}', [App\Http\Controllers\TodoListController::class, 'update'])->name('update');
+
+    Route::post('/delete/{task}', [App\Http\Controllers\TodoListController::class, 'delete'])->name('delete');
 });

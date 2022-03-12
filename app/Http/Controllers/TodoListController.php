@@ -28,6 +28,8 @@ class TodoListController extends Controller
     	$task = new Task();
       $task->title = $request->title;
     	$task->description = $request->description;
+      $task->user_id = auth()->user()->id;
+      $task->done = false;
     	$task->save();
     	return redirect('/dashboard'); 
     }
@@ -46,29 +48,39 @@ class TodoListController extends Controller
     }
 
     //to update task 
-    public function update(Request $request, Task $task)
-    {
-    	if(isset($_POST['delete'])) {
-    		$task->delete();
-    		return redirect('/dashboard');
-    	}
-    	else
-    	{
-            $this->validate($request, [
-                'description' => 'required'
-            ]);
-        $task->title = $request->title;
-    		$task->description = $request->description;
-	    	$task->save();
-	    	return redirect('/dashboard'); 
-    	}    
-    }
+    // public function update(Request $request, Task $task)
+    // {
+    // 	if(isset($_POST['delete'])) {
+    // 		$task->delete();
+    // 		return redirect('/dashboard');
+    // 	}
+    // 	else
+    // 	{
+    //         $this->validate($request, [
+    //             'description' => 'required'
+    //         ]);
+    //     $task->title = $request->title;
+    // 		$task->description = $request->description;
+	  //   	$task->save();
+	  //   	return redirect('/dashboard'); 
+    // 	}    
+    // }
 
+    public function update($id){
+      $task = Task::findOrFail($id);
+      $data = request()->validate(['description' => 'required']);
+
+      $task->description = $data['description'];
+      $task->save();
+      return  redirect('/dashboard'); 
+    }
+    
     //to delete task 
     public function delete($id){
+      // $task=Task::where('id',$id)->first();
+      // $task->delete();
 
-      $task=Task::where('id',$id)->first();
-      $task->delete();
+      $task = Task::findOrFail($id)->delete();
       return  redirect('/dashboard'); 
     }
 
