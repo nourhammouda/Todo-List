@@ -42,6 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function Task(){ // public function task(){ 
-        return $this->hasOne(Task::class,'owner_id'); //return $this->hasMany(Task::class);
+       // return $this->hasOne(Task::class,'owner_id'); it will be use in another way 
+        return $this->hasMany(Task::class);// it is many 
     }
 }
